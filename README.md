@@ -1,4 +1,4 @@
-# Jun PDF Tools
+# Jun-PDF-Tools
 
 PDF 파일을 간편하게 분할하고 병합할 수 있는 Windows 프로그램입니다.
 
