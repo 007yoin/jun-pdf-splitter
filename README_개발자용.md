@@ -95,17 +95,17 @@ build\Release\jun-pdf-tools.exe
 
 Win32 GUI 전체 구현:
 
-- **윈도우 프로시저**: `WndProc()` - 메시지 처리
+- **윈도우 프로시저**: `window_proc()` - 메시지 처리
 - **탭 관리**: `show_tab()` - 분할/병합 탭 전환
 - **분할 탭**:
-  - `create_split_controls()` - 컨트롤 생성
+  - `create_split_tab()` - 컨트롤 생성
   - `split_load_pdf()` - PDF 로드
   - `split_add_chapter()` - 챕터 추가
-  - `split_execute()` - 분할 실행
+  - `split_run()` - 분할 실행
 - **병합 탭**:
-  - `create_merge_controls()` - 컨트롤 생성
+  - `create_merge_tab()` - 컨트롤 생성
   - `merge_add_files()` - 파일 추가
-  - `merge_execute()` - 병합 실행
+  - `merge_run()` - 병합 실행
 - **드래그 앤 드롭**: `WM_DROPFILES` 처리
 
 ### pdf_tools.c
@@ -122,12 +122,13 @@ QPDF 라이브러리를 사용한 PDF 처리:
 ### pdf_tools.h
 
 ```c
-int pdf_get_page_count(const WCHAR* pdf_path);
+int pdf_get_page_count(const WCHAR* pdf_path, pdf_error_t* error);
 int pdf_split(const WCHAR* input_path, const WCHAR* output_path,
-              int start_page, int end_page);
+              int start_page, int end_page, pdf_error_t* error);
 int pdf_merge(const WCHAR** input_paths, int input_count,
               const WCHAR* output_path,
-              pdf_progress_cb progress_cb, void* user_data);
+              pdf_progress_cb progress_cb, void* user_data,
+              pdf_error_t* error, int* failed_index);
 ```
 
 ## CMakeLists.txt 주요 설정
